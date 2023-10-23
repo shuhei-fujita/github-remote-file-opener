@@ -21,8 +21,8 @@ setup() {
   branch_name=$(git symbolic-ref --short HEAD)
 }
 
-# Test Case 1
-@test "Open README.md in current directory with ./" {
+# Test 1
+@test "Open \"./README.md\" in current directory" {
   run bash github-repo-open-file ./README.md
   debug_output
   [ "$status" -eq 0 ]
@@ -31,8 +31,8 @@ setup() {
   [[ "${lines[5]}" == "Final URL: https://github.com/$usern_name/$repo_name/blob/$branch_name/README.md" ]]
 }
 
-# Test Case 2
-@test "Open README.md in current directory without ./" {
+# Test 2
+@test "Open \"README.md\" in current directory" {
   run bash github-repo-open-file README.md
   debug_output
   [ "$status" -eq 0 ]
@@ -41,8 +41,8 @@ setup() {
   [[ "${lines[5]}" == "Final URL: https://github.com/$usern_name/$repo_name/blob/$branch_name/README.md" ]]
 }
 
-# Test Case 3
-@test "Open README.md in subdirectory with ./" {
+# Test 3
+@test "Open \"./README.md\" in subdirectory directory \"src/subdirectory\"" {
   cd src/subdirectory
   run bash github-repo-open-file ./README.md
   debug_output
@@ -52,8 +52,8 @@ setup() {
   [[ "${lines[5]}" == "Final URL: https://github.com/$usern_name/$repo_name/blob/$branch_name/src/subdirectory/README.md" ]]
 }
 
-# Test Case 4
-@test "Open README.md in subdirectory without ./" {
+# Test 4
+@test "Open \"README.md\" in subdirectory directory \"src/subdirectory\"" {
   cd src/subdirectory
   run bash github-repo-open-file README.md
   debug_output
