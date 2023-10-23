@@ -44,5 +44,22 @@ echo "Commit Hash: $commit_hash"
 echo "File Path: $file_path"
 echo "Final URL: $final_url"
 
-# Open the URL (Mac)
-open $final_url
+# プラットフォームを判別
+case "$(uname -s)" in
+  Darwin)
+    # macOS
+    open $final_url
+    ;;
+  Linux)
+    # Linux
+    xdg-open $final_url
+    ;;
+  CYGWIN*|MINGW32*|MSYS*|MINGW*)
+    # Windows
+    start $final_url
+    ;;
+  *)
+    # 未知のプラットフォーム
+    echo "Unknown OS, cannot open URL automatically."
+    ;;
+esac
