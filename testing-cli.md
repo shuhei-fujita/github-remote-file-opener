@@ -14,11 +14,11 @@ github-repo-open-file ./README.md
 4. テストケース：サブディレクトリがあるか確認して、サブディレクトリがある場合はサブディレクトリ
 github-repo-open-file README.md
 
-5. テストケース：サブディレクトリがあるか確認して、サブディレクトリがある場合かつそのサブディレクトリがサブモジュールの場合
+<!-- 5. テストケース：サブディレクトリがあるか確認して、サブディレクトリがある場合かつそのサブディレクトリがサブモジュールの場合
 github-repo-open-file ./README.md
 
 6. テストケース：サブディレクトリがあるか確認して、サブディレクトリがある場合かつそのサブディレクトリがサブモジュールの場合
-github-repo-open-file README.md
+github-repo-open-file README.md -->
 
 ## Batsの実行方法
 
