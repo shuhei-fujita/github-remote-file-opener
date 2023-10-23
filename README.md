@@ -6,51 +6,50 @@
 
 ## インストール
 
-1. `open-remote-repo.sh` スクリプトをクローンします。
+### ソースコードのクローン
+
+まず、このリポジトリをクローンします。
 
 ```bash
-git clone \
-    git@github.com:shuhei-fujita/github-remote-file-opener.git \
-    && cd github-remote-file-opener \
+git clone git@github.com:shuhei-fujita/github-remote-file-opener.git
+cd github-remote-file-opener
 ```
 
-2. スクリプトに実行権限を付与します。
+### Makefileを使用したインストール
+
+- このリポジトリには Makefile が含まれており、簡単なインストールが可能です。
+- このコマンドは、github-repo-open-file.sh スクリプトに実行権限を付与し、~/bin ディレクトリにコピーします。
+
+※ `~/bin`がPATH環境変数に含まれていることを確認してください。
+※ そうでない場合は、`.bashrc`、`.zshrc` などのシェル設定ファイルに`export PATH=$PATH:~/bin`を追加してください。
 
 ```bash
-chmod +x ./open-remote-repo.sh
+make install
 ```
-
-3. シンボリックリンクを作成して、、どこのディレクトリからでもコマンドとして利用できるようにします。
-
-```bash
-ln -s ./open-remote-repo.sh ~/bin/open-remote-repo
-```
-
-**注意:** `~/bin` が `PATH` 環境変数に含まれていることを確認してください。
 
 ## 使い方
 
 基本的な使い方は以下の通りです。
 
 ```bash
-open-remote-repo [相対ファイルパス]
+github-repo-open-file [相対ファイルパス]
 ```
 
 例）
 現在のリポジトリのルートディレクトリで以下のコマンドを実行すると、対応するGitHubのURLがブラウザで開きます。
 
 ```bash
-open-remote-repo ./open-remote-repo.sh
+github-repo-open-file ./github-repo-open-file.sh
 ```
 
 ```bash
-open-remote-repo ./README.md
+github-repo-open-file ./README.md
 ```
 
 ```bash
-open-remote-repo ./index.html
+github-repo-open-file ./index.html
 ```
 
 ```bash
-open-remote-repo ./src/index.html
+github-repo-open-file ./src/index.html
 ```
