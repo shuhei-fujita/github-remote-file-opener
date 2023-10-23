@@ -9,42 +9,33 @@ if [ -z "$file_path" ]; then
   exit 1
 fi
 
-# Get the root directory of the main repository
+# Gitリポジトリのルートディレクトリを取得
 repo_root=$(git rev-parse --show-toplevel)
 
-# Identify the submodule path if it exists
-submodule_path=$(git submodule status | awk '{print $2}' | while read -r line; do
-  if [[ "$file_path" == "$line"* ]]; then
-    echo "$line"
-    break
-  fi
-done)
+# 絶対パスに変換（macOS対応）
+file_path=$(perl -e 'use File::Spec; print File::Spec->abs2rel(@ARGV) . "\n"' "$file_path" "$repo_root")
 
-# If the file is in a submodule, navigate to it
-if [ ! -z "$submodule_path" ]; then
-  cd "$repo_root/$submodule_path" || exit 1
-  file_path=${file_path#"$submodule_path/"}
-fi
+# 現在のブランチ名を取得
+current_branch=$(git symbolic-ref --short HEAD)
 
-# Get the remote URL and commit hash
+# リモートURLとコミットハッシュを取得
 remote_url=$(git remote get-url origin)
-commit_hash=$(git rev-parse HEAD)
 
-# Extract the GitHub username and repository name
+# GitHubのユーザー名とリポジトリ名を抽出
 user_and_repo=$(echo $remote_url | sed -n 's/.*github.com:\(.*\).git/\1/p')
 
-# Generate the final URL
-final_url="https://github.com/$user_and_repo/blob/$commit_hash/$file_path"
+# 最終的なURLを生成
+final_url="https://github.com/$user_and_repo/blob/$current_branch/$file_path"
 
-# Debugging Information
+# デバッグ情報
 echo "---------------------"
 echo "Debugging Information"
 echo "Remote URL: $remote_url"
-echo "Commit Hash: $commit_hash"
+echo "Current Branch: $current_branch"
 echo "File Path: $file_path"
 echo "Final URL: $final_url"
 
-# プラットフォームを判別
+# プラットフォームを判別してURLを開く
 case "$(uname -s)" in
   Darwin)
     # macOS
